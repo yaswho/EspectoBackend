@@ -8,6 +8,7 @@ const nodemailer = require('nodemailer');
 const bodyParser = require('body-parser');
 const helmet = require("helmet");
 const path = require('path');
+const api = require('./routes/api');
 
 app.use(express.json());
 app.use(cors());
@@ -16,7 +17,7 @@ app.use(bodyParser.json());
 app.use(helmet());
 
 //Rotas 
-//app.use('/api', api)
+app.use('/api', api)
 //app.use('/site', site)
 
 function startServer() 

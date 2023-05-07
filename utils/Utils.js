@@ -2,13 +2,14 @@ require("dotenv").config();
 const nodemailer = require('nodemailer');
 var fs = require('fs');
 const path = require('path');
+const bcrypt = require('bcrypt')
 
 const saltRounds = 12
 
 class Utils {
     async encrypt(password)
 	{
-        response;
+        let response = -1;
 		await bcrypt
             .hash(password, saltRounds)
             .then(hash => {
@@ -24,18 +25,10 @@ class Utils {
 
 	async validate(password, hash)
 	{
-        response = false
-
-        await bcrypt
-            .compare(password, hash)
-            .then(res => {
-                response = res// return true
-            })
-            .catch(err => console.error(err.message)) 
-
-        return response
+        return await bcrypt
+            .compare(password, hash);         
 	}
 }
 
-utils = Utils()
+utils = new Utils()
 module.exports = utils
